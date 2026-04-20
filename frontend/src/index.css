@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #060010;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .input-field {
+    @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500
+           focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500
+           text-white font-medium py-3 rounded-xl shadow-[0_0_20px_rgba(147,51,234,0.3)]
+           transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple-500/40
+           text-white font-medium py-3 rounded-xl transition-all;
+  }
+
+  .card {
+    @apply bg-[#0d051a] border border-white/10 rounded-2xl;
+  }
+
+  .spotlight {
+    @apply absolute pointer-events-none rounded-full blur-[120px];
+  }
+}
