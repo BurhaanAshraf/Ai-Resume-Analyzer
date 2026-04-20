@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import { getRedis } from '../config/redis.js';
+import jwt from "jsonwebtoken";
+import { getRedis } from "../config/redis.js";
 
-const ACCESS_TTL = 15 * 60;          // 15 minutes in seconds
+const ACCESS_TTL = 15 * 60; // 15 minutes in seconds
 const REFRESH_TTL = 7 * 24 * 60 * 60; // 7 days in seconds
 
 export function generateAccessToken(userId) {
@@ -42,8 +42,8 @@ export async function revokeRefreshToken(userId) {
 
 export const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict',
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
   maxAge: REFRESH_TTL * 1000,
-  path: '/api/auth',
+  path: "/api/auth",
 };

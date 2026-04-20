@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || "/api",
   withCredentials: true,
 });
 
@@ -30,13 +30,17 @@ api.interceptors.response.use(
     if (
       error.response?.status === 401 &&
       !original._retry &&
-      !original.url?.includes('/auth/')
+      !original.url?.includes("/auth/")
     ) {
       original._retry = true;
 
       if (!refreshPromise) {
         refreshPromise = axios
-          .post('/api/auth/refresh', {}, { withCredentials: true })
+          .post(
+            `${import.meta.env.VITE_API_URL || ""}/auth/refresh`,
+            {},
+            { withCredentials: true },
+          )
           .then((res) => {
             setAccessToken(res.data.accessToken);
             return res.data.accessToken;
@@ -52,11 +56,11 @@ api.interceptors.response.use(
         return api(original);
       } catch {
         setAccessToken(null);
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;
